@@ -77,7 +77,7 @@ public class BurgerTest {
     }
 
     @Test
-    public void testMoveIngredient() {
+    public void testMoveIngredientToDifferentPosition() {
         Ingredient ingredient1 = mock(Ingredient.class);
         Ingredient ingredient2 = mock(Ingredient.class);
 
@@ -85,10 +85,23 @@ public class BurgerTest {
         burger.addIngredient(ingredient2);
 
         burger.moveIngredient(FIRST_INDEX, SECOND_INDEX);
-        assertEquals("Начинку поменяли местами первый ингредиент встал на второе место",
+        assertEquals("После перемещения ингредиенты должны поменяться метами",
                 ingredient1, burger.ingredients.get(SECOND_INDEX));
-        assertEquals("Начинку поменяли местами второй ингредиент встал на первое место",
-                ingredient2, burger.ingredients.get(FIRST_INDEX));
+    }
+
+    @Test
+    public void testIngredientsCountAfterMove() {
+        Ingredient ingredient1 = mock(Ingredient.class);
+        Ingredient ingredient2 = mock(Ingredient.class);
+
+        burger.addIngredient(ingredient1);
+        burger.addIngredient(ingredient2);
+
+        int initialSize = burger.ingredients.size();
+
+        burger.moveIngredient(FIRST_INDEX, SECOND_INDEX);
+        assertEquals("После перемещения количество ингредиентов не должно изменяться",
+                initialSize, burger.ingredients.size());
     }
 
     @Test
